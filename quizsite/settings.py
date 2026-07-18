@@ -127,9 +127,8 @@ import os
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = os.environ.get("DEBUG", "False") == "True"
-
 ALLOWED_HOSTS = [
-    os.environ.get("https://quizsite-agqu.onrender.com", ""),
+    "quizsite-agqu.onrender.com",
     "localhost",
     "127.0.0.1",
 ]
