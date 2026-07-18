@@ -133,8 +133,5 @@ DEBUG = False
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-]
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://quizsite-agqu.onrender.com",
+    'https://quizsite-agqu.onrender.com',
 ]
