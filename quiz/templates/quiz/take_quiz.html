@@ -1,0 +1,50 @@
+{% extends "quiz/base.html" %}
+{% block title %}{{ quiz.title }}{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>{{ quiz.title }}</h1>
+    {% if quiz.description %}<p class="sub">{{ quiz.description }}</p>{% endif %}
+    <p class="muted">Time left: <span class="timer" id="timer">--:--</span></p>
+
+    <form method="post" id="quiz-form">
+        {% csrf_token %}
+        {% for question in questions %}
+        <div class="question-block">
+            <div class="q-title">{{ forloop.counter }}. {{ question.text }} <span class="muted">({{ question.marks }} mark{{ question.marks|pluralize }})</span></div>
+            {% for key, value in question.options %}
+            <label class="option-label">
+                <input type="radio" name="question_{{ question.id }}" value="{{ key }}" required>
+                {{ value }}
+            </label>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <button type="submit">Submit Quiz</button>
+    </form>
+</div>
+
+<script>
+    // Countdown timer, auto-submits the form when time runs out.
+    let totalSeconds = {{ quiz.duration_minutes }} * 60;
+    const timerEl = document.getElementById('timer');
+    const formEl = document.getElementById('quiz-form');
+
+    function render() {
+        const m = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
+        const s = (totalSeconds % 60).toString().padStart(2, '0');
+        timerEl.textContent = m + ':' + s;
+    }
+    render();
+
+    const interval = setInterval(function () {
+        totalSeconds -= 1;
+        if (totalSeconds <= 0) {
+            clearInterval(interval);
+            timerEl.textContent = "00:00";
+            formEl.submit();
+            return;
+        }
+        render();
+    }, 1000);
+</script>
+{% endblock %}

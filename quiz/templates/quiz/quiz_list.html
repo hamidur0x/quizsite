@@ -1,0 +1,22 @@
+{% extends "quiz/base.html" %}
+{% block title %}Available Quizzes{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>Available Quizzes</h1>
+    <p class="sub">Signed in as <strong>{{ email }}</strong></p>
+
+    {% if quizzes %}
+        {% for quiz in quizzes %}
+        <div class="quiz-item">
+            <div>
+                <strong>{{ quiz.title }}</strong><br>
+                <span class="muted">{{ quiz.questions.count }} questions &middot; {{ quiz.total_marks }} marks &middot; {{ quiz.duration_minutes }} min</span>
+            </div>
+            <a class="btn" href="{% url 'quiz:take_quiz' quiz.id %}">Start</a>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="muted">No quizzes are available right now.</p>
+    {% endif %}
+</div>
+{% endblock %}

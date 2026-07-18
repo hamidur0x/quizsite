@@ -1,0 +1,39 @@
+{% extends "quiz/base.html" %}
+{% block title %}Your Result{% endblock %}
+{% block content %}
+<div class="card">
+    <div class="score-box">
+        <div class="muted" style="color:#e0e7ff;">{{ attempt.quiz.title }}</div>
+        <div class="big">{{ attempt.score }} / {{ attempt.total_marks }}</div>
+        <div>{{ attempt.percentage }}% &middot; {{ attempt.email }}</div>
+    </div>
+
+    <h1>Answer Review</h1>
+    {% for record in answers %}
+    <div class="question-block">
+        <div class="q-title">
+            {{ forloop.counter }}. {{ record.question.text }}
+            {% if record.is_correct %}
+                <span class="badge correct">Correct</span>
+            {% else %}
+                <span class="badge wrong">Incorrect</span>
+            {% endif %}
+        </div>
+        {% for key, value in record.question.options %}
+            <label class="option-label
+                {% if key == record.question.correct_option %}correct
+                {% elif key == record.selected_option and key != record.question.correct_option %}wrong{% endif %}">
+                {{ key }}. {{ value }}
+                {% if key == record.question.correct_option %} &mdash; correct answer{% endif %}
+                {% if key == record.selected_option and key != record.question.correct_option %} &mdash; your answer{% endif %}
+            </label>
+        {% endfor %}
+        {% if not record.selected_option %}
+        <p class="muted">You did not answer this question.</p>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <a class="btn" href="{% url 'quiz:email_gate' %}">Done</a>
+</div>
+{% endblock %}

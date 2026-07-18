@@ -1,0 +1,13 @@
+{% extends "quiz/base.html" %}
+{% block title %}Enter your email{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>Welcome to the Quiz</h1>
+    <p class="sub">Enter the email address you were invited with to begin.</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.email }}
+        <button type="submit">Continue</button>
+    </form>
+</div>
+{% endblock %}

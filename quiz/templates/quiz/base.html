@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Quiz{% endblock %}</title>
+<style>
+    :root {
+        --primary: #4f46e5;
+        --bg: #f4f5fb;
+        --card: #ffffff;
+        --text: #1f2333;
+        --muted: #6b7280;
+        --border: #e5e7eb;
+        --correct: #16a34a;
+        --wrong: #dc2626;
+    }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        padding: 40px 16px;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 32px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+    h1 { font-size: 1.5rem; margin-top: 0; }
+    p.sub { color: var(--muted); margin-top: -8px; }
+    .form-control {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 1rem;
+        margin-bottom: 16px;
+    }
+    button, .btn {
+        display: inline-block;
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        padding: 12px 22px;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    button:hover, .btn:hover { opacity: 0.92; }
+    .messages { list-style: none; padding: 0; margin-bottom: 16px; }
+    .messages li {
+        padding: 10px 14px;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+    .messages li.error { background: #fee2e2; color: var(--wrong); }
+    .messages li.info { background: #e0e7ff; color: var(--primary); }
+    .messages li.success { background: #dcfce7; color: var(--correct); }
+    .quiz-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        margin-bottom: 12px;
+    }
+    .question-block {
+        border-bottom: 1px solid var(--border);
+        padding: 18px 0;
+    }
+    .question-block:last-of-type { border-bottom: none; }
+    .q-title { font-weight: 600; margin-bottom: 10px; }
+    .option-label {
+        display: block;
+        padding: 10px 14px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-bottom: 8px;
+        cursor: pointer;
+    }
+    .option-label:hover { border-color: var(--primary); }
+    .option-label input { margin-right: 10px; }
+    .option-label.correct { border-color: var(--correct); background: #f0fdf4; }
+    .option-label.wrong { border-color: var(--wrong); background: #fef2f2; }
+    .score-box {
+        text-align: center;
+        padding: 24px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary), #7c3aed);
+        color: #fff;
+        margin-bottom: 24px;
+    }
+    .score-box .big { font-size: 2.5rem; font-weight: 700; }
+    .muted { color: var(--muted); font-size: 0.9rem; }
+    .badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    .badge.correct { background: #dcfce7; color: var(--correct); }
+    .badge.wrong { background: #fee2e2; color: var(--wrong); }
+    .timer { font-weight: 600; color: var(--primary); }
+</style>
+</head>
+<body>
+<div class="wrap">
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>
