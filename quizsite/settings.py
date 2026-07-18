@@ -133,6 +133,10 @@ ALLOWED_HOSTS = [
     "quizsite-agqu.onrender.com",
 ]
 
+
+
+import os
+import dj_database_url
 DATABASES = {
     "default": dj_database_url.config(
         default=os.environ.get("postgresql://quizsite_user:qvadvKvmabyHhfcKHJLeztjcOkQVYuHl@dpg-d9dpogj7uimc73c11ejg-a.oregon-postgres.render.com/quizsite"),
