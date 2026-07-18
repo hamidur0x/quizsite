@@ -128,7 +128,3 @@ ALLOWED_HOSTS = [
     "quizsite-agqu.onrender.com",
 ]
 
-# CSRF Trusted Origins
-CSRF_TRUSTED_ORIGINS = [
-    "https://quizsite-agqu.onrender.com",
-]
