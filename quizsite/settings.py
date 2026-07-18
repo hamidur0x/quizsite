@@ -111,27 +111,24 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
-
-STATIC_URL = 'static/'
+# Static Files
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-
 import os
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+# Debug
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-import os
-
-DEBUG = False
-
+# Allowed Hosts
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    'https://quizsite-agqu.onrender.com',
+    "quizsite-agqu.onrender.com",
+]
+
+# CSRF Trusted Origins
+CSRF_TRUSTED_ORIGINS = [
+    "https://quizsite-agqu.onrender.com",
 ]
